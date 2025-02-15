@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class UISetting : MonoBehaviour
 {
     [SerializeField] GameObject uiParent;
@@ -17,6 +18,10 @@ public class UISetting : MonoBehaviour
     [SerializeField] float maxRS = 100;
     float msSliderPercentage , rsSliderPercentage;
 
+
+    [SerializeField] Button quitButton;
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -24,6 +29,8 @@ public class UISetting : MonoBehaviour
         PercentageCalculator();
         moveSpeedSlider.value = msSliderPercentage;
         rotateSpeedSlider.value = rsSliderPercentage;
+
+        quitButton.onClick.AddListener(QuitToMainMenu);
     }
 
     // Update is called once per frame
@@ -57,5 +64,10 @@ public class UISetting : MonoBehaviour
     public void ToggleUi()
     {
         uiParent.SetActive(!uiParent.activeSelf);
+    }
+
+    void QuitToMainMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

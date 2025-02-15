@@ -21,19 +21,37 @@ public class MyCesiumManager : MonoBehaviour
     [SerializeField] double height;
 
 
+
+    [Space(30)]
+    [SerializeField] string api = "";
+    [SerializeField] CesiumIonServer cesiumIonServer;
+    [SerializeField] Cesium3DTileset cesium3DTileset;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (applyCordinatesButton != null)
             applyCordinatesButton.onClick.AddListener(ApplyCordinates);
 
+
         cesiumGeoreference = FindFirstObjectByType<CesiumGeoreference>();
+        cesium3DTileset = FindFirstObjectByType<Cesium3DTileset>();
+
+        ApiSetting();
 
     }
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    void ApiSetting()
+    {
+        if (FindFirstObjectByType<CrossSceneInfoHolder>() != null)
+            api = FindFirstObjectByType<CrossSceneInfoHolder>().api;
+
+        cesiumIonServer.defaultIonAccessToken = api;
+        cesium3DTileset.url = "https://tile.googleapis.com/v1/3dtiles/root.json?key=" + api;
     }
 
 
